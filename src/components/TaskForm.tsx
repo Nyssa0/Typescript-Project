@@ -2,6 +2,8 @@ import { useContext, useState } from 'react';
 import { ToDoContext } from '@/contexts/ToDoContext';
 import { Task, TaskPriority, TaskStatus } from '@/types/Task';
 import DateTime from '@/types/DateTime';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface TaskFormProps {
   closeModal: () => void;
@@ -46,6 +48,7 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
 
     if (task) {
       updateTask(newTask);
+      toast.success('Task updated successfully!');
     } else {
       addTask(newTask);
       setTitle('');
@@ -55,6 +58,7 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
       setHour(0);
       setMinute(0);
       setStatus(TaskStatus.pending);
+      toast.success('Task added successfully!');
     }
 
     closeModal();
