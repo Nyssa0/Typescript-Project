@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Task } from '../types/Task';
 import Modal from './Modal';
-import TaskUpdateForm from './tasks/TaskUpdateForm';
+import TaskForm from './TaskForm';
 
 interface ToDoItemProps {
   task: Task;
@@ -37,7 +37,7 @@ export default function ToDoItem({ task }: ToDoItemProps) {
 
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <h2 className="text-xl font-bold mb-4">Update Task</h2>
-        <TaskUpdateForm closeModal={() => setShowModal(false)} task={task} />
+        <TaskForm task={task} closeModal={() => setShowModal(false)} />
       </Modal>
 
       <button

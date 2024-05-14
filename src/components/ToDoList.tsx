@@ -1,8 +1,8 @@
 import ToDoItem from './ToDoItem';
 import Modal from './Modal';
 import { useState } from 'react';
-import TaskCreateForm from './tasks/TaskCreateForm';
 import { Task } from '@/types/Task';
+import TaskForm from './TaskForm';
 
 interface ToDoListProps {
   tasks: Task[];
@@ -22,7 +22,7 @@ export default function ToDoList({ tasks }: ToDoListProps) {
 
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <h2 className="text-xl font-bold mb-4">Add Task</h2>
-        <TaskCreateForm closeModal={() => setShowModal(false)} />
+        <TaskForm closeModal={() => setShowModal(false)} />
       </Modal>
 
       <button

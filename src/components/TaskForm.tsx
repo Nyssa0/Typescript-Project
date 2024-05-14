@@ -1,41 +1,31 @@
 import { useContext, useState } from 'react';
-import { ToDoContext } from '../../contexts/ToDoContext';
-import { TaskPriority, TaskStatus, Task } from '../../types/Task';
-import DateTime from '../../types/DateTime';
+import { ToDoContext } from '@/contexts/ToDoContext';
+import { Task, TaskPriority, TaskStatus } from '@/types/Task';
+import DateTime from '@/types/DateTime';
 
-interface TaskUpdateFormProps {
+interface TaskFormProps {
   closeModal: () => void;
-  task: Task;
+  task?: Task; // task is optional, if provided, it's an update form
 }
 
-export default function TaskUpdateForm({ closeModal, task }: TaskUpdateFormProps) {
-  const { updateTask } = useContext(ToDoContext);
+export default function TaskForm({ closeModal, task }: TaskFormProps) {
+  const { tasks, addTask, updateTask } = useContext(ToDoContext);
 
-  const [title, setTitle] = useState(task.title);
-  const [description, setDescription] = useState(task.description);
-  const [priority, setPriority] = useState<TaskPriority>(task.priority);
-  const [date, setDate] = useState<string>(`${task.dueDate.year}-${String(task.dueDate.month).padStart(2, '0')}-${String(task.dueDate.day).padStart(2, '0')}`);
-  const [hour, setHour] = useState<number>(task.dueDate.hour);
-  const [minute, setMinute] = useState<number>(task.dueDate.minute);
-  const [status, setStatus] = useState<TaskStatus>(task.status);
+  const [title, setTitle] = useState(task ? task.title : '');
+  const [description, setDescription] = useState(task ? task.description : '');
+  const [priority, setPriority] = useState<TaskPriority>(task ? task.priority : TaskPriority.low);
+  const [date, setDate] = useState<string>(
+    task
+      ? `${task.dueDate.year}-${String(task.dueDate.month).padStart(2, '0')}-${String(task.dueDate.day).padStart(2, '0')}`
+      : ''
+  );
+  const [hour, setHour] = useState<number>(task ? task.dueDate.hour : 0);
+  const [minute, setMinute] = useState<number>(task ? task.dueDate.minute : 0);
+  const [status, setStatus] = useState<TaskStatus>(task ? task.status : TaskStatus.pending);
 
-  const handleUpdateTask = ({
-    title,
-    description,
-    priority,
-    date,
-    hour,
-    minute,
-    status,
-  }: {
-    title: string;
-    description: string;
-    priority: TaskPriority;
-    date: string;
-    hour: number;
-    minute: number;
-    status: TaskStatus;
-  }) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
     const [year, month, day] = date.split('-').map(Number);
     const dueDate: DateTime = {
       day,
@@ -45,29 +35,36 @@ export default function TaskUpdateForm({ closeModal, task }: TaskUpdateFormProps
       minute,
     };
 
-    updateTask({
-      id: task.id,
+    const newTask = {
+      id: task ? task.id : tasks.length + 1,
       title,
       description,
       priority,
       dueDate,
       status,
-    });
+    };
+
+    if (task) {
+      updateTask(newTask);
+    } else {
+      addTask(newTask);
+      // Reset form fields after adding a new task
+      setTitle('');
+      setDescription('');
+      setPriority(TaskPriority.low);
+      setDate('');
+      setHour(0);
+      setMinute(0);
+      setStatus(TaskStatus.pending);
+    }
+
+    closeModal();
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleUpdateTask({ title, description, priority, date, hour, minute, status });
-        closeModal();
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label
-          htmlFor="title"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700">
           Title
         </label>
         <input
@@ -79,10 +76,7 @@ export default function TaskUpdateForm({ closeModal, task }: TaskUpdateFormProps
         />
       </div>
       <div className="mb-4">
-        <label
-          htmlFor="description"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
           Description
         </label>
         <textarea
@@ -93,10 +87,7 @@ export default function TaskUpdateForm({ closeModal, task }: TaskUpdateFormProps
         />
       </div>
       <div className="mb-4">
-        <label
-          htmlFor="priority"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="priority" className="block text-sm font-medium text-gray-700">
           Priority
         </label>
         <select
@@ -111,10 +102,7 @@ export default function TaskUpdateForm({ closeModal, task }: TaskUpdateFormProps
         </select>
       </div>
       <div className="mb-4">
-        <label
-          htmlFor="dueDate"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700">
           Due Date
         </label>
         <input
@@ -126,10 +114,7 @@ export default function TaskUpdateForm({ closeModal, task }: TaskUpdateFormProps
         />
       </div>
       <div className="mb-4">
-        <label
-          htmlFor="dueTime"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="dueTime" className="block text-sm font-medium text-gray-700">
           Due Time
         </label>
         <div className="flex space-x-2">
@@ -150,10 +135,7 @@ export default function TaskUpdateForm({ closeModal, task }: TaskUpdateFormProps
         </div>
       </div>
       <div className="mb-4">
-        <label
-          htmlFor="status"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="status" className="block text-sm font-medium text-gray-700">
           Status
         </label>
         <select
@@ -167,11 +149,8 @@ export default function TaskUpdateForm({ closeModal, task }: TaskUpdateFormProps
           <option value={TaskStatus.done}>Done</option>
         </select>
       </div>
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded-md"
-      >
-        Update Task
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+        {task ? 'Update Task' : 'Add Task'}
       </button>
     </form>
   );
