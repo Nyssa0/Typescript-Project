@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Task } from '../types/Task';
+import { Task } from '@/types/Task';
 import Modal from './Modal';
 import TaskForm from './TaskForm';
 

@@ -5,7 +5,7 @@ import DateTime from '@/types/DateTime';
 
 interface TaskFormProps {
   closeModal: () => void;
-  task?: Task; // task is optional, if provided, it's an update form
+  task?: Task;
 }
 
 export default function TaskForm({ closeModal, task }: TaskFormProps) {
@@ -15,12 +15,12 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
   const [description, setDescription] = useState(task ? task.description : '');
   const [priority, setPriority] = useState<TaskPriority>(task ? task.priority : TaskPriority.low);
   const [date, setDate] = useState<string>(
-    task
+    task && task.dueDate
       ? `${task.dueDate.year}-${String(task.dueDate.month).padStart(2, '0')}-${String(task.dueDate.day).padStart(2, '0')}`
       : ''
   );
-  const [hour, setHour] = useState<number>(task ? task.dueDate.hour : 0);
-  const [minute, setMinute] = useState<number>(task ? task.dueDate.minute : 0);
+  const [hour, setHour] = useState<number>(task && task.dueDate ? task.dueDate.hour : 0);
+  const [minute, setMinute] = useState<number>(task && task.dueDate ? task.dueDate.minute : 0);
   const [status, setStatus] = useState<TaskStatus>(task ? task.status : TaskStatus.pending);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -28,11 +28,11 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
 
     const [year, month, day] = date.split('-').map(Number);
     const dueDate: DateTime = {
-      day,
-      month,
-      year,
-      hour,
-      minute,
+      day: day || new Date().getDate(),
+      month: month || new Date().getMonth() + 1,
+      year: year || new Date().getFullYear(),
+      hour: hour || 0,
+      minute: minute || 0,
     };
 
     const newTask = {
@@ -48,7 +48,6 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
       updateTask(newTask);
     } else {
       addTask(newTask);
-      // Reset form fields after adding a new task
       setTitle('');
       setDescription('');
       setPriority(TaskPriority.low);
@@ -122,14 +121,14 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
             type="number"
             placeholder="Hour"
             value={hour}
-            onChange={(e) => setHour(parseInt(e.target.value, 10))}
+            onChange={(e) => setHour(parseInt(e.target.value, 10) || 0)}
             className="w-16 px-2 py-1 border border-gray-300 rounded-md"
           />
           <input
             type="number"
             placeholder="Minute"
             value={minute}
-            onChange={(e) => setMinute(parseInt(e.target.value, 10))}
+            onChange={(e) => setMinute(parseInt(e.target.value, 10) || 0)}
             className="w-16 px-2 py-1 border border-gray-300 rounded-md"
           />
         </div>
