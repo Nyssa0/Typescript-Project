@@ -1,10 +1,11 @@
-import ToDoList from "./components/ToDoList";
+import ToDoManager from './components/ToDoManager';
 
 function App() {
   return (
-    <>
-      <ToDoList />
-    </>
+    <div className="App">
+      <h1>ToDo App</h1>
+      <ToDoManager />
+    </div>
   );
 }
 

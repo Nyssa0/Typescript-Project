@@ -4,7 +4,7 @@ We enjoy having a clean project history and a pleasing workflow. So here is our 
 
 # Structure
 
-Commit messages should be in english and lowercase : 
+Commit messages should be in english and lowercase :
 
 ```
 <gitmoji> <description>
