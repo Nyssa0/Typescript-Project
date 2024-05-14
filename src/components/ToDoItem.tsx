@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { Task } from "../types/Task";
+import Modal from "./Modal";
+import TaskUpdateForm from "./tasks/TaskUpdateForm";
 
 interface ToDoItemProps {
   task: Task;
 }
 
 export default function ToDoItem({ task }: ToDoItemProps) {
+  const [showModal, setShowModal] = useState(false);
   return (
     <li
       className="p-4 bg-white rounded-md shadow-sm hover:bg-gray-50"
@@ -25,7 +29,14 @@ export default function ToDoItem({ task }: ToDoItemProps) {
       </p>
         <p className="text-sm text-gray-500">
             Due Date: {new Date(task.dueDate).toLocaleDateString()}
-            </p>
+        </p>
+
+            <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+              <h2 className="text-xl font-bold mb-4">Update Task</h2>
+              <TaskUpdateForm closeModal={() => setShowModal(false)} task={task}/>
+            </Modal>
+
+            <button onClick={() => setShowModal(true)} className="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">Update Task</button>
     </li>
   );
 }
