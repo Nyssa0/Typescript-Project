@@ -38,8 +38,7 @@ class ToDoManager extends Component<ToDoManagerProps, ToDoManagerState> {
   render() {
     const tasks = this.context.tasks;
     return (
-      <div>
-        {/* Render task list and actions */}
+      <div className='w-full'>
         <ToDoList tasks={tasks} />
       </div>
     );

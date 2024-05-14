@@ -61,8 +61,8 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="mb-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700">
           Title
         </label>
@@ -74,7 +74,7 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
           className="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
         />
       </div>
-      <div className="mb-4">
+      <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700">
           Description
         </label>
@@ -85,7 +85,7 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
           className="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
         />
       </div>
-      <div className="mb-4">
+      <div>
         <label htmlFor="priority" className="block text-sm font-medium text-gray-700">
           Priority
         </label>
@@ -100,7 +100,7 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
           <option value={TaskPriority.high}>High</option>
         </select>
       </div>
-      <div className="mb-4">
+      <div>
         <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700">
           Due Date
         </label>
@@ -112,7 +112,7 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
           className="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
         />
       </div>
-      <div className="mb-4">
+      <div>
         <label htmlFor="dueTime" className="block text-sm font-medium text-gray-700">
           Due Time
         </label>
@@ -122,18 +122,18 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
             placeholder="Hour"
             value={hour}
             onChange={(e) => setHour(parseInt(e.target.value, 10) || 0)}
-            className="w-16 px-2 py-1 border border-gray-300 rounded-md"
+            className="w-16 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
           <input
             type="number"
             placeholder="Minute"
             value={minute}
             onChange={(e) => setMinute(parseInt(e.target.value, 10) || 0)}
-            className="w-16 px-2 py-1 border border-gray-300 rounded-md"
+            className="w-16 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
       </div>
-      <div className="mb-4">
+      <div>
         <label htmlFor="status" className="block text-sm font-medium text-gray-700">
           Status
         </label>
@@ -148,7 +148,7 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
           <option value={TaskStatus.done}>Done</option>
         </select>
       </div>
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+      <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md shadow-sm hover:bg-blue-600 transition-colors duration-200">
         {task ? 'Update Task' : 'Add Task'}
       </button>
     </form>

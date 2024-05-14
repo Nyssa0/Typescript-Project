@@ -10,13 +10,13 @@ export interface Task {
 }
 
 export enum TaskStatus {
-  done = 'done',
-  pending = 'pending',
-  inProgress = 'inProgress',
+  done = 'Done',
+  pending = 'Pending',
+  inProgress = 'In Progress',
 }
 
 export enum TaskPriority {
-  low = 'low',
-  medium = 'medium',
-  high = 'high',
+  low = 'Low',
+  medium = 'Medium',
+  high = 'High',
 }
