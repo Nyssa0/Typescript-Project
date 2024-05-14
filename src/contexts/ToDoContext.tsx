@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
-import { Task } from '@/types/Task';
-import fakeData from '@/tasks';
+import { Task } from '../types/Task';
+import fakeData from '../tasks';
 
 interface ToDoContextType {
     tasks: Task[];
