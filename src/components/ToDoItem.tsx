@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { Task, TaskStatus, TaskPriority } from '@/types/Task';
 import Modal from './Modal';
-// import ModalDelete from './ModalDelete';
 import TaskForm from './TaskForm';
 import DeleteTaskForm from './DeleteTaskForm';
 import {

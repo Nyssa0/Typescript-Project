@@ -23,7 +23,7 @@ export default function DeleteTaskForm({
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-xl font-bold">
+      <h2 className="text-base">
         Are you sure you want to delete this task?
       </h2>
       <div className="flex justify-end gap-4">
@@ -34,7 +34,7 @@ export default function DeleteTaskForm({
           Delete
         </button>
         <button
-          onClick={closeModal}
+          onClick={() => closeModal()}
           className="px-4 py-2 text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300"
         >
           Cancel
