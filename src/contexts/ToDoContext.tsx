@@ -1,20 +1,44 @@
 import React, { createContext, useState, ReactNode } from 'react';
-import { Task } from '@/types/Task';
+import { type Task } from '@/types/Task';
 import fakeData from '../tasks';
+import { log } from '@/decorators/LogDecorator';
 
 interface ToDoContextType {
   tasks: Task[];
-  addTask: (task: Task) => void;
-  removeTask: (id: number) => void;
-  updateTask: (task: Task) => void;
+  addTask: <T extends Task>(task: T) => void;
+  removeTask: <T extends Task>(task: T) => void;
+  updateTask: <T extends Task>(task: T) => void;
 }
 
 const ToDoContext = createContext<ToDoContextType>({
   tasks: [],
-  addTask: () => {},
-  removeTask: () => {},
-  updateTask: () => {},
+  addTask: () => { throw new Error("addTask not implemented") },
+  removeTask: () => { throw new Error("removeTask not implemented") },
+  updateTask: () => { throw new Error("updateTask not implemented") },
 });
+class ToDoManager {
+  private tasks: Task[];
+  private setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+
+  constructor(tasks: Task[], setTasks: React.Dispatch<React.SetStateAction<Task[]>>) {
+    this.tasks = tasks;
+    this.setTasks = setTasks;
+  }
+
+  @log
+  addTask<T extends Task>(task: T) {
+    this.setTasks(prevTasks => [...prevTasks, task]);
+  }
+
+  @log
+  removeTask<T extends Task>(task: T) {
+    this.setTasks(prevTasks => prevTasks.filter(t => t.id !== task.id));
+  }
+
+  updateTask = <T extends Task>(task: T) => {
+    this.setTasks(prevTasks => prevTasks.map(t => t.id === task.id ? task : t));
+  }
+}
 
 const ToDoProvider = ({ children }: { children: ReactNode }) => {
   const [tasks, setTasks] = useState<Task[]>(() => {
@@ -22,24 +46,14 @@ const ToDoProvider = ({ children }: { children: ReactNode }) => {
     return savedTasks ? JSON.parse(savedTasks) : fakeData;
   });
 
-  const addTask = (task: Task) => {
-    setTasks([...tasks, task]);
-  };
-
-  const removeTask = (id: number) => {
-    setTasks(tasks.filter((task) => task.id !== id));
-  };
-
-  const updateTask = (task: Task) => {
-    setTasks(tasks.map((t) => (t.id === task.id ? task : t)));
-  };
+  const manager = new ToDoManager(tasks, setTasks);
 
   React.useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
   return (
-    <ToDoContext.Provider value={{ tasks, addTask, removeTask, updateTask }}>
+    <ToDoContext.Provider value={{ tasks, addTask: manager.addTask.bind(manager), removeTask: manager.removeTask.bind(manager), updateTask: manager.updateTask.bind(manager) }}>
       {children}
     </ToDoContext.Provider>
   );
