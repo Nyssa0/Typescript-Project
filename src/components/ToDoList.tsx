@@ -53,7 +53,11 @@ export default function ToDoList({ tasks }: ToDoListProps) {
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">
-          <img src="/todo.svg" alt="Page Icon" className="inline-block h-10 w-10 mr-2" />
+          <img
+            src="/todo.svg"
+            alt="Page Icon"
+            className="inline-block h-10 w-10 mr-2"
+          />
           Task List
         </h1>
         <button
@@ -61,7 +65,9 @@ export default function ToDoList({ tasks }: ToDoListProps) {
           className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 relative"
         >
           <PlusIcon className="h-6 w-6" />
-          <span className="absolute top-0 left-0 bg-blue-500 text-white p-1 rounded text-xs opacity-0 hover:opacity-100 transition-opacity duration-200">New Task</span>
+          <span className="absolute top-0 left-0 bg-blue-500 text-white p-1 rounded text-xs opacity-0 hover:opacity-100 transition-opacity duration-200">
+            New Task
+          </span>
         </button>
       </div>
       <ul className="space-y-4">
