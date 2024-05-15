@@ -1,9 +1,14 @@
-import ToDoManager from './components/ToDoManager';
+import { useContext } from 'react';
+import { ToDoContext } from './contexts/ToDoContext';
+import ToDoList from './components/ToDoList';
 
 function App() {
+  const { tasks } = useContext(ToDoContext);
   return (
     <div className="flex flex-col items-center justify-start p-6 gap-6 bg-gray-100 min-h-screen">
-      <ToDoManager />
+      <div className="w-full">
+        <ToDoList tasks={tasks} />
+      </div>
     </div>
   );
 }
