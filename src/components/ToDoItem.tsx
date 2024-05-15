@@ -53,7 +53,7 @@ export default function ToDoItem({ task }: ToDoItemProps) {
           <h3 className={`text-lg font-semibold ${task.status === TaskStatus.done ? 'line-through text-gray-500' : ''}`}>
             {task.title}
           </h3>
-          {task.isNew && <span className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2">New</span>}
+          {task.isNew && task.status !== TaskStatus.done && <span className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2">New</span>}
         </div>
         {task.status !== TaskStatus.done && (
           <button
@@ -75,7 +75,7 @@ export default function ToDoItem({ task }: ToDoItemProps) {
               : task.priority === TaskPriority.medium
                 ? 'bg-yellow-100 border-yellow-500 text-yellow-900'
                 : 'bg-green-100 border-green-500 text-green-900'
-              }`}
+              } ${task.status === TaskStatus.done ? 'opacity-50' : ''}`}
           >
             Priority: {task.priority} {task.priority === TaskPriority.high ? '🔴' : task.priority === TaskPriority.medium ? '🟡' : '🟢'}
           </p>
@@ -89,7 +89,7 @@ export default function ToDoItem({ task }: ToDoItemProps) {
             : task.status === TaskStatus.pending
               ? 'bg-orange-100 border-orange-500 text-orange-900'
               : 'bg-purple-100 border-purple-500 text-purple-900'
-            }`}
+            } ${task.status === TaskStatus.done ? 'opacity-50' : ''}`}
           >
             Status: {task.status} {getStatusEmoji(task.status)}
           </p>
