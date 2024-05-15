@@ -44,6 +44,7 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
       priority,
       dueDate,
       status,
+      isNew: true,
     };
 
     if (task) {

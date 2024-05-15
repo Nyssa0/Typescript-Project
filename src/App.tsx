@@ -6,7 +6,7 @@ function App() {
   const { tasks } = useContext(ToDoContext);
   return (
     <div className="flex flex-col items-center justify-start p-6 gap-6 bg-gray-100 min-h-screen">
-      <div className="w-full">
+      <div className="w-full max-w-5xl m-auto">
         <ToDoList tasks={tasks} />
       </div>
     </div>
