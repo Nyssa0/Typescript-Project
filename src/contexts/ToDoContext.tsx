@@ -17,11 +17,9 @@ const ToDoContext = createContext<ToDoContextType>({
   updateTask: () => { throw new Error("updateTask not implemented") },
 });
 class ToDoManager {
-  private tasks: Task[];
   private setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 
-  constructor(tasks: Task[], setTasks: React.Dispatch<React.SetStateAction<Task[]>>) {
-    this.tasks = tasks;
+  constructor(setTasks: React.Dispatch<React.SetStateAction<Task[]>>) {
     this.setTasks = setTasks;
   }
 
@@ -46,7 +44,7 @@ const ToDoProvider = ({ children }: { children: ReactNode }) => {
     return savedTasks ? JSON.parse(savedTasks) : fakeData;
   });
 
-  const manager = new ToDoManager(tasks, setTasks);
+  const manager = new ToDoManager(setTasks);
 
   React.useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
