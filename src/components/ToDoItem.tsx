@@ -85,7 +85,7 @@ export default function ToDoItem({ task }: ToDoItemProps) {
             </button>
           )}
           <button
-            onClick={() => setShowModalDelete(true)} // Appel de la fonction de suppression lorsque le bouton est cliqué
+            onClick={() => setShowModalDelete(true)}
             className="bg-red-500 text-white p-1.5 rounded hover:bg-red-600 transition-colors duration-200"
           >
             <TrashIcon className="h-4 w-4" />

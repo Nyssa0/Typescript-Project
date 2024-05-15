@@ -17,8 +17,8 @@ export default function DeleteTaskForm({
 
   const handleDelete = () => {
     removeTask(task);
-    closeModal();
     toast.success('Task deleted successfully!');
+    closeModal();
   };
 
   return (
