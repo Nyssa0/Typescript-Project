@@ -8,6 +8,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
