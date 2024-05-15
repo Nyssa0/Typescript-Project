@@ -52,10 +52,10 @@ export default function ToDoList({ tasks }: ToDoListProps) {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-md font-bold">
+        <h1 className="text-2xl font-bold">
           <img src="/todo.svg" alt="Page Icon" className="inline-block h-10 w-10 mr-2" />
           Task List
-        </h2>
+        </h1>
         <button
           onClick={() => setShowModal(true)}
           className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 relative"

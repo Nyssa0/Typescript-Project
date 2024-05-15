@@ -70,7 +70,7 @@ export default function ToDoItem({ task }: ToDoItemProps) {
       <div className="flex justify-between mt-4">
         <div className='flex gap-5'>
           <p
-            className={`text-sm font-medium py-1 px-3 rounded-full border ${task.priority === TaskPriority.high
+            className={`text-sm font-medium py-1 px-5 rounded-full border ${task.priority === TaskPriority.high
               ? 'bg-red-100 border-red-500 text-red-900'
               : task.priority === TaskPriority.medium
                 ? 'bg-yellow-100 border-yellow-500 text-yellow-900'
@@ -78,6 +78,11 @@ export default function ToDoItem({ task }: ToDoItemProps) {
               }`}
           >
             Priority: {task.priority} {task.priority === TaskPriority.high ? '🔴' : task.priority === TaskPriority.medium ? '🟡' : '🟢'}
+          </p>
+        </div>
+        <div className='flex gap-5 items-center'>
+          <p className="text-sm text-gray-500">
+            Due Date: {formatDate(task.dueDate)} {String(task.dueDate.hour).padStart(2, '0')}:{String(task.dueDate.minute).padStart(2, '0')}
           </p>
           <p className={`text-sm font-medium py-1 px-3 rounded-full flex items-center text-lg border ${task.status === TaskStatus.done
             ? 'bg-blue-100 border-blue-500 text-blue-900'
@@ -89,9 +94,6 @@ export default function ToDoItem({ task }: ToDoItemProps) {
             Status: {task.status} {getStatusEmoji(task.status)}
           </p>
         </div>
-        <p className="text-sm text-gray-500">
-          Due Date: {formatDate(task.dueDate)} {String(task.dueDate.hour).padStart(2, '0')}:{String(task.dueDate.minute).padStart(2, '0')}
-        </p>
       </div>
 
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
