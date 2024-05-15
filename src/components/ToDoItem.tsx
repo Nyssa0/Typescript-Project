@@ -40,7 +40,7 @@ export default function ToDoItem({ task }: ToDoItemProps) {
   };
 
   return (
-    <li className={`p-4 rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg ${task.status === TaskStatus.done ? 'bg-gray-200' : 'bg-white'}`}>
+    <li className={`p-4 rounded-lg shadow-md transition-all border-2 border-white duration-300 hover:shadow-2xl hover:border-2 hover:border-black cursor-pointer ${task.status === TaskStatus.done ? 'bg-gray-200' : 'bg-white'}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <button
