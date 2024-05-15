@@ -7,6 +7,7 @@ export interface Task {
   status: TaskStatus;
   priority: TaskPriority;
   dueDate: DateTime;
+  isNew?: boolean;
 }
 
 export enum TaskStatus {

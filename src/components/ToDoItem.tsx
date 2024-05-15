@@ -40,9 +40,9 @@ export default function ToDoItem({ task }: ToDoItemProps) {
   };
 
   return (
-    <li className={`p-4 rounded-lg shadow-md transition-all border-2 border-white duration-300 hover:shadow-2xl hover:border-2 hover:border-black cursor-pointer ${task.status === TaskStatus.done ? 'bg-gray-200' : 'bg-white'}`}>
+    <li className={`p-4 rounded-lg shadow-md transition-all border-2 border-white duration-300 hover:shadow-2xl hover:border-2 hover:border-black cursor-pointer ${task.status === TaskStatus.done ? 'bg-gray-300' : 'bg-white'}`}>
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           <button
             onClick={toggleStatus}
             className={`w-8 h-8 flex items-center justify-center rounded-full border-2 ${task.status === TaskStatus.done ? 'bg-green-500 border-green-500' : 'border-gray-300'
@@ -50,9 +50,10 @@ export default function ToDoItem({ task }: ToDoItemProps) {
           >
             {task.status === TaskStatus.done && <CheckIcon className="w-5 h-5 text-white" />}
           </button>
-          <h3 className={`text-lg font-semibold ml-4 ${task.status === TaskStatus.done ? 'line-through text-gray-500' : ''}`}>
+          <h3 className={`text-lg font-semibold ${task.status === TaskStatus.done ? 'line-through text-gray-500' : ''}`}>
             {task.title}
           </h3>
+          {task.isNew && <span className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2">New</span>}
         </div>
         {task.status !== TaskStatus.done && (
           <button
@@ -63,7 +64,9 @@ export default function ToDoItem({ task }: ToDoItemProps) {
           </button>
         )}
       </div>
-      <p className={`text-gray-600 mt-2 ${task.status === TaskStatus.done ? 'line-through' : ''}`}>{task.description}</p>
+      <blockquote className={`p-4 my-4 border-s-4 border-gray-300 bg-gray-50 dark:border-gray-500 ${task.status === TaskStatus.done ? 'line-through opacity-50' : ''}`}>
+        <p className="text-xl italic font-medium leading-relaxed text-gray-900">{task.description}</p>
+      </blockquote>
       <div className="flex justify-between mt-4">
         <div className='flex gap-5'>
           <p
