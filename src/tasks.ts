@@ -2,7 +2,7 @@ import { Task, TaskPriority, TaskStatus } from './types/Task';
 
 const fakeData: Task[] = [
   {
-    id: 1,
+    id: new Date().getTime(),
     title: 'Buy groceries',
     description: 'Buy groceries',
     priority: TaskPriority.medium,
@@ -10,7 +10,7 @@ const fakeData: Task[] = [
     dueDate: { day: 15, month: 5, year: 2024, hour: 10, minute: 30 },
   },
   {
-    id: 2,
+    id: new Date().getTime() + 1,
     title: 'Walk the dog',
     description: 'Finish project report',
     priority: TaskPriority.high,
@@ -18,7 +18,7 @@ const fakeData: Task[] = [
     dueDate: { day: 20, month: 5, year: 2024, hour: 16, minute: 0 },
   },
   {
-    id: 3,
+    id: new Date().getTime() + 2,
     title: 'Finish project report',
     description: 'Finish project report',
     priority: TaskPriority.low,
@@ -26,7 +26,7 @@ const fakeData: Task[] = [
     dueDate: { day: 25, month: 5, year: 2024, hour: 14, minute: 30 },
   },
   {
-    id: 4,
+    id: new Date().getTime() + 3,
     title: 'Go to the gym',
     description: 'Go to the gym',
     priority: TaskPriority.medium,
@@ -34,7 +34,7 @@ const fakeData: Task[] = [
     dueDate: { day: 30, month: 5, year: 2024, hour: 18, minute: 0 },
   },
   {
-    id: 5,
+    id: new Date().getTime() + 4,
     title: 'Call mom',
     description: 'Call mom',
     priority: TaskPriority.high,
