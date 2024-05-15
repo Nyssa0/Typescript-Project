@@ -26,15 +26,27 @@ export default function ToDoItem({ task }: ToDoItemProps) {
     updateTask(updatedTask);
   };
 
+  const getStatusEmoji = (status: TaskStatus) => {
+    switch (status) {
+      case TaskStatus.done:
+        return '✅';
+      case TaskStatus.pending:
+        return '⏳';
+      case TaskStatus.inProgress:
+        return '🔄';
+      default:
+        return '';
+    }
+  };
+
   return (
-    <li className={`p-4 rounded-lg shadow-md transition-all duration-200 hover:bg-gray-100 ${task.status === TaskStatus.done ? 'bg-gray-200' : 'bg-white'}`}>
+    <li className={`p-4 rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg ${task.status === TaskStatus.done ? 'bg-gray-200' : 'bg-white'}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <button
             onClick={toggleStatus}
-            className={`w-8 h-8 flex items-center justify-center rounded-full border-2 ${
-              task.status === TaskStatus.done ? 'bg-green-500 border-green-500' : 'border-gray-300'
-            }`}
+            className={`w-8 h-8 flex items-center justify-center rounded-full border-2 ${task.status === TaskStatus.done ? 'bg-green-500 border-green-500' : 'border-gray-300'
+              }`}
           >
             {task.status === TaskStatus.done && <CheckIcon className="w-5 h-5 text-white" />}
           </button>
@@ -42,29 +54,36 @@ export default function ToDoItem({ task }: ToDoItemProps) {
             {task.title}
           </h3>
         </div>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition-colors duration-200"
-        >
-          <PencilSquareIcon className="h-5 w-5" />
-        </button>
+        {task.status !== TaskStatus.done && (
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition-colors duration-200"
+          >
+            <PencilSquareIcon className="h-5 w-5" />
+          </button>
+        )}
       </div>
       <p className={`text-gray-600 mt-2 ${task.status === TaskStatus.done ? 'line-through' : ''}`}>{task.description}</p>
       <div className="flex justify-between mt-4">
         <div className='flex gap-5'>
-        <p
-          className={`text-sm ${
-            task.priority === TaskPriority.high
-              ? 'text-red-500'
+          <p
+            className={`text-sm font-medium py-1 px-3 rounded-full border ${task.priority === TaskPriority.high
+              ? 'bg-red-100 border-red-500 text-red-900'
               : task.priority === TaskPriority.medium
-                ? 'text-yellow-500'
-                : 'text-green-500'
-          }`}
-        >
-          Priority: {task.priority}
-        </p>
-          <p className='text-sm text-gray-500'>
-            Status: {task.status}
+                ? 'bg-yellow-100 border-yellow-500 text-yellow-900'
+                : 'bg-green-100 border-green-500 text-green-900'
+              }`}
+          >
+            Priority: {task.priority} {task.priority === TaskPriority.high ? '🔴' : task.priority === TaskPriority.medium ? '🟡' : '🟢'}
+          </p>
+          <p className={`text-sm font-medium py-1 px-3 rounded-full flex items-center text-lg border ${task.status === TaskStatus.done
+            ? 'bg-blue-100 border-blue-500 text-blue-900'
+            : task.status === TaskStatus.pending
+              ? 'bg-orange-100 border-orange-500 text-orange-900'
+              : 'bg-purple-100 border-purple-500 text-purple-900'
+            }`}
+          >
+            Status: {task.status} {getStatusEmoji(task.status)}
           </p>
         </div>
         <p className="text-sm text-gray-500">
