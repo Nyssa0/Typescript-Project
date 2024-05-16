@@ -22,17 +22,19 @@ export default function ToDoList({ tasks }: ToDoListProps) {
     setSelectOption(e.target.value.toLowerCase());
   };
 
-  const filteredTasks = tasks.filter((task) => {
-    if (inputText === "") {
-      return task;
-    } else if (task.description.toLowerCase().includes(inputText) && selectOption === "" || task.priority.toLowerCase().includes(inputText) && selectOption === "") {
-      return task;
-    } else if (selectOption === "description" && task.description.toLowerCase().includes(inputText)) {
-      return task;
-    } else if (selectOption === "priority" && task.priority.toLowerCase().includes(inputText)) {
-      return task;
+  const filteredTasks = tasks.filter((task: Task) => {
+    if ("description" in task || "priority" in task) {
+      if (inputText === "") {
+        return task;
+      } else if (task.description.toLowerCase().includes(inputText) && selectOption === "" || task.priority.toLowerCase().includes(inputText) && selectOption === "") {
+        return task;
+      } else if (selectOption === "description" && task.description.toLowerCase().includes(inputText)) {
+        return task;
+      } else if (selectOption === "priority" && task.priority.toLowerCase().includes(inputText)) {
+        return task;
+      }
+      return false;
     }
-    return false;
   });
 
   const statusOrder = (status: TaskStatus) => {
@@ -61,7 +63,7 @@ export default function ToDoList({ tasks }: ToDoListProps) {
     }
   };
 
-  const sortedTasks = filteredTasks.sort((a, b) => {
+  const sortedTasks = filteredTasks.sort((a: Task, b: Task) => {
     const statusDiff = statusOrder(b.status) - statusOrder(a.status);
     if (statusDiff !== 0) return statusDiff;
     return priorityOrder(b.priority) - priorityOrder(a.priority);
