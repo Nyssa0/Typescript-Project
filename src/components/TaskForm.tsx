@@ -11,7 +11,7 @@ interface TaskFormProps {
 }
 
 export default function TaskForm({ closeModal, task }: TaskFormProps) {
-  const { tasks, addTask, updateTask } = useContext(ToDoContext);
+  const { addTask, updateTask } = useContext(ToDoContext);
 
   const [title, setTitle] = useState(task ? task.title : '');
   const [description, setDescription] = useState(task ? task.description : '');
@@ -38,12 +38,13 @@ export default function TaskForm({ closeModal, task }: TaskFormProps) {
     };
 
     const newTask = {
-      id: task ? task.id : tasks.length + 1,
+      id: task ? task.id : new Date().getTime(),
       title,
       description,
       priority,
       dueDate,
       status,
+      isNew: true,
     };
 
     if (task) {
