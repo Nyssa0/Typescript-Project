@@ -1,10 +1,20 @@
 # ToDo App using React, Vite, and TypeScript
 
-This project is a simple ToDo application built with React, Vite, and TypeScript. It includes components for managing tasks, adding new tasks, updating task status, and setting task priorities and due dates.
+## Project Overview
+This project is a simple ToDo application built with React, Vite, and TypeScript. It allows users to manage tasks, add new tasks, update task status, and set task priorities and due dates.
+
+## Technologies Used
+- React
+- Vite
+- TypeScript
+
+## Installation
+1. Clone the repository
+2. Install dependencies with `npm install`
 
 ## Project Structure
 - `src/`: Contains all the source code files
-  - `components/`: Contains components like `ToDoItem`, `ToDoList`, `TaskForm`, and `Modal`
+  - `components/`: Includes components like `ToDoItem`, `ToDoList`, `TaskForm`, and `Modal`
   - `contexts/`: Contains the `ToDoContext` and `ToDoProvider` for managing tasks
   - `decorators/`: Includes a `LogDecorator` for logging method calls
   - `types/`: Defines interfaces for `Task` and `DateTime`
