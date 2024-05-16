@@ -34,12 +34,12 @@ This project is a simple ToDo application built with React, Vite, and TypeScript
 2. Install dependencies with `npm install`.
 3. Start the development server with `npm run dev`.
 
-### Task Status and Priority
+## Task Status and Priority
 - **Status Order**: Tasks are displayed based on status order: In Progress, Pending, Done.
 - **Priority Order**: Tasks are displayed based on priority order: High, Medium, Low.
 
-### Logic on Display
+## Logic on Display
 - Tasks are sorted based on status and priority to provide a clear view of task importance.
 
-### Application Link
+## Application Link
 Explore the ToDo App [here](https://typescript-project-neon.vercel.app).
